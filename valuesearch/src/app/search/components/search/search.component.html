@@ -1,0 +1,22 @@
+<p>search works!</p>
+
+<mat-form-field>
+    <mat-icon matPrefix>search</mat-icon>
+    <input matInput type="search" ngModel="" (ngModelChange)="handleSearch($event)" placeholder="search here" class="search-input">
+</mat-form-field>
+
+
+<ng-container *ngIf="(searchMatches$ | async) as searchMatches">
+    <ng-container *ngFor="let searchMatch of searchMatches">
+        <app-search-match [searchMatch]= "searchMatch" ></app-search-match>
+    </ng-container>
+</ng-container>
+
+
+<!-- <ng-container>
+    <ng-container *ngFor="let searchMatch of searchMatches">
+        <app-search-match [searchMatch]= "searchMatch" ></app-search-match>
+    </ng-container>
+</ng-container> -->
+
+<!-- {{searchMatches | json}} -->

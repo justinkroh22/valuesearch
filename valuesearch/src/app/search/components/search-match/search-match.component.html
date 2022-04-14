@@ -1,0 +1,7 @@
+
+    <button mat-button [ngStyle]="{display: 'block', padding: '5px'}" (click)="viewCompanyOverview(searchMatch!.symbol)">
+        <div [ngStyle]="{display: 'inline-block', padding: '5px', minWidth: '100px'}">{{searchMatch?.symbol}}</div>
+        <div [ngStyle]="{display: 'inline-block', padding: '5px', minWidth: '200px'}">{{searchMatch?.name}}</div>
+        <div [ngStyle]="{display: 'inline-block', padding: '5px'}">{{searchMatch?.region}}</div>       
+    <button>
+
