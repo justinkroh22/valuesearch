@@ -14,10 +14,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { EntityDataModule } from '@ngrx/data';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CompanyOverviewModule } from './company-overview/company-overview.module';
+import { CompanyReportedIncomeStatementsModule } from './company-reported-income-statements/company-reported-income-statements.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +32,7 @@ import { CompanyOverviewModule } from './company-overview/company-overview.modul
 
     SearchModule,
     CompanyOverviewModule,
+    CompanyReportedIncomeStatementsModule,
 
 
 

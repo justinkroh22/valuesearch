@@ -29,7 +29,7 @@ export class CompanyOverviewModule {
   entityMetadata: EntityMetadataMap = {
     CompanyOverview: {
       entityName: 'company-overview',
-      selectId: this.getPlayerCityId
+      selectId: this.getId
     }
   };
 
@@ -41,7 +41,7 @@ export class CompanyOverviewModule {
 
   }
 
-  getPlayerCityId(companyOverview: CompanyOverview): string {
+  getId(companyOverview: CompanyOverview): string {
 
     return companyOverview.Symbol;
   }
