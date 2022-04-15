@@ -6,15 +6,18 @@ import { CompanyReportedIncomeStatements } from './models/CompanyReportedIncomeS
 import { CompanyReportedIncomeStatementsHttpService } from './services/company-reported-income-statements-http.service';
 import { CompanyReportedIncomeStatementsStoreService } from './services/company-reported-income-statements-store.service';
 import { CompanyReportedIncomeStatementsComponent } from './components/company-reported-income-statements/company-reported-income-statements.component';
+import { InverseTableComponent } from '../inverse-table/components/inverse-table/inverse-table.component';
+import { InverseTableModule } from '../inverse-table/inverse-table.module';
 
 
 
 @NgModule({
   declarations: [
-    CompanyReportedIncomeStatementsComponent,
+    CompanyReportedIncomeStatementsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    InverseTableModule
   ],
   providers: [
     CompanyReportedIncomeStatementsHttpService,
@@ -27,7 +30,7 @@ import { CompanyReportedIncomeStatementsComponent } from './components/company-r
 export class CompanyReportedIncomeStatementsModule { 
 
   entityMetadata: EntityMetadataMap = {
-    CompanyOverview: {
+    CompanyReportedIncomeStatements: {
       entityName: 'company-reported-income-statements',
       selectId: this.getId
     }

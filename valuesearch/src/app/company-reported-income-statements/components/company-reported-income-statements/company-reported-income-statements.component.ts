@@ -23,6 +23,37 @@ export class CompanyReportedIncomeStatementsComponent implements OnInit {
     this.getById();
   }
 
+  rowNamesArray: string[] = [
+    'Fiscal Date Ending',
+    'Reported Currency',
+    'GrossProfit',
+    'Total Revenue',
+    'Cost of Revenue',
+    'Cost of Goods and Services Sold',
+    'Operating Income',
+    'Selling  G+ A',
+    'Research and Development',
+    'Operating Expenses',
+    'Net Investment Income',
+    'Net Interest Income',
+    'Interest Income',
+    'Interest Expense',
+    'Non Interest Income',
+    'Other Non Operating Income',
+    'Depreciation',
+    'Depreciation and Amortiziation',
+    'Income Before Tax',
+    'Income Tax Expense',
+    'Interest And Debt Expense',
+    'Net Income From Continuing Operations',
+    'Comprehensive Income Net of Tax',
+    'EBIT',
+    'EBITDA',
+    'Net Income'
+
+]
+
+
 
   private getIDFromUrl(): any {
     let id = this.route.snapshot.paramMap.get('id');

@@ -15,10 +15,11 @@ import { EntityDataModule } from '@ngrx/data';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { CompanyOverviewModule } from './company-overview/company-overview.module';
 import { CompanyReportedIncomeStatementsModule } from './company-reported-income-statements/company-reported-income-statements.module';
+import { InverseTableComponent } from './inverse-table/components/inverse-table/inverse-table.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

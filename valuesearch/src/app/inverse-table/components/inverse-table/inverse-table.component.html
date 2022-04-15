@@ -1,0 +1,16 @@
+<ng-container >
+
+<p>hi</p>
+
+        <div *ngIf="rowDefList != undefined" [ngStyle]="{display: 'inline-block'}">
+            <app-data-column [object] ="rowDefList"></app-data-column>
+        </div>
+
+    <ng-container *ngFor="let object of objectList">
+
+        <div [ngStyle]="{display: 'inline-block'}">
+            <app-data-column [object]="object"></app-data-column>
+        
+        </div>
+    </ng-container>
+</ng-container>

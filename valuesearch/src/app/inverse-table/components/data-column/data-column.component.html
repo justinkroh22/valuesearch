@@ -1,0 +1,6 @@
+<ng-container *ngFor="let objectValue of getObjectAttr(object)">
+
+    <div [ngStyle]="cellStyle">
+        <span [ngStyle]="{}">{{objectValue}}</span>
+    </div> 
+</ng-container>
