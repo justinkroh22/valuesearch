@@ -7,6 +7,7 @@ import { CompanyReportedCashFlows } from './models/CompanyReportedCashFlows';
 import { CompanyReportedCashFlowsHttpService } from './services/company-reported-cash-flows-http.service';
 import { CompanyReportedCashFlowsStoreService } from './services/company-reported-cash-flows-store.service';
 import { CompanyReportedCashFlowsComponent } from './components/company-reported-cash-flows/company-reported-cash-flows.component';
+import { InverseTableModule } from '../inverse-table/inverse-table.module';
 
 
 
@@ -15,13 +16,16 @@ import { CompanyReportedCashFlowsComponent } from './components/company-reported
     CompanyReportedCashFlowsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    InverseTableModule
   ],
   providers: [
     CompanyReportedCashFlowsHttpService,
     CompanyReportedCashFlowsStoreService
   ],
-  exports: []
+  exports: [
+    CompanyReportedCashFlowsComponent
+  ]
 })
 export class CompanyReportedCashFlowsModule { 
 

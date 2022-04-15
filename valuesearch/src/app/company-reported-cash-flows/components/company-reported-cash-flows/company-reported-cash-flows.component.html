@@ -1,1 +1,7 @@
 <p>company-reported-cash-flows works!</p>
+
+<ng-container *ngIf ="(companyReportedCashFlows$ | async) as companyReportedCashFlows">
+
+    <app-inverse-table [objectList] = "companyReportedCashFlows.annualReports" ></app-inverse-table>
+
+</ng-container>
