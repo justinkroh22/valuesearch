@@ -1,0 +1,7 @@
+<p>company-reported-balance-sheets works!</p>
+
+<ng-container *ngIf ="(companyReportedBalanceSheets$ | async) as companyReportedBalanceSheets">
+
+    <app-inverse-table [objectList] = "companyReportedBalanceSheets.annualReports" ></app-inverse-table>
+
+</ng-container>
