@@ -7,22 +7,26 @@ import { CompanyReportedIncomeStatementsComponent } from './company-reported-inc
 
 const routes: Routes = [
 
-  {
-    path:'company-overview/:id',
-    component: CompanyOverviewComponent
-  },
-  {
-    path:'company-reported-income-statements/:id',
-    component: CompanyReportedIncomeStatementsComponent
-  },
-  {
-    path:'company-reported-balance-sheets/:id',
-    component: CompanyReportedBalanceSheetsComponent
-  },
-  {
-    path:'company-reported-cash-flows/:id',
-    component: CompanyReportedCashFlowsComponent
-  }
+  // {
+  //   path:'company-overview/:id',
+  //   component: CompanyOverviewComponent
+  // },
+  // {
+  //   path:'company-reported-income-statements/:id',
+  //   component: CompanyReportedIncomeStatementsComponent
+  // },
+  // {
+  //   path:'company-reported-balance-sheets/:id',
+  //   component: CompanyReportedBalanceSheetsComponent
+  // },
+  // {
+  //   path:'company-reported-cash-flows/:id',
+  //   component: TickerWrapperComponent(CompanyReportedCashFlowsComponent)
+  // }
+  // {
+  //   path:'company-reported-cash-flows/:id',
+  //   component: CompanyReportedCashFlowsComponent
+  // }
   
 
 ];
