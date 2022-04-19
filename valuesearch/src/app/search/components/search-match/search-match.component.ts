@@ -20,7 +20,7 @@ export class SearchMatchComponent implements OnInit {
 
   viewCompanyOverview(symbol: string): void {
 
-    let url: string = '/ticker/' + symbol;
+    let url: string = '/company/' + symbol;
 
     this.router.navigate([url]);
   }

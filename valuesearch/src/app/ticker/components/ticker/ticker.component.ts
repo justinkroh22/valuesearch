@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { GlobalQuote } from '../../models/GlobalQuote';
+import { GlobalQuoteHttpService } from '../../services/global-quote-http.service';
 
 @Component({
   selector: 'app-ticker',
@@ -8,18 +11,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TickerComponent implements OnInit {
 
-  ticker: any = this.route.snapshot.paramMap.get('id');
+  @Input() tickerSymbol: any
+
+  // tickerSymbol: any = this.route.snapshot.paramMap.get('id');
+
+  globalQuote$?: Observable<GlobalQuote>;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private globalQuoteHttpService: GlobalQuoteHttpService
 
   ) {
-    // this.ticker = 
+
    }
 
   ngOnInit(): void {
 
-    // this.getById();
+    this.globalQuote$ = this.globalQuoteHttpService.getById(this.tickerSymbol)
   }
 
 

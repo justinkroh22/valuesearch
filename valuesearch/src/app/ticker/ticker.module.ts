@@ -7,15 +7,16 @@ import { CompanyReportedBalanceSheetsModule } from '../company-reported-balance-
 import { CompanyReportedCashFlowsModule } from '../company-reported-cash-flows/company-reported-cash-flows.module';
 import { CompanyReportedIncomeStatementsModule } from '../company-reported-income-statements/company-reported-income-statements.module';
 import { TickerComponent } from './components/ticker/ticker.component';
-import { TabsComponent } from './components/tabs/tabs.component';
+import { TabsComponent } from '../company/components/tabs/tabs.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import { GlobalQuoteHttpService } from './services/global-quote-http.service';
+import { GlobalQuoteStoreService } from './services/global-quote-store.service';
 
 
 
 @NgModule({
   declarations: [
     TickerComponent,
-    TabsComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +27,13 @@ import {MatTabsModule} from '@angular/material/tabs';
     CompanyReportedCashFlowsModule,
     MatTabsModule
 
+  ],
+  providers: [
+    GlobalQuoteHttpService,
+    GlobalQuoteStoreService
+  ],
+  exports: [
+    TickerComponent
   ]
 })
 export class TickerModule { }

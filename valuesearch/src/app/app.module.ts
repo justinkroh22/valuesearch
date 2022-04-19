@@ -19,6 +19,8 @@ import { InverseTableComponent } from './inverse-table/components/inverse-table/
 import { CompanyReportedBalanceSheetsModule } from './company-reported-balance-sheets/company-reported-balance-sheets.module';
 import { CompanyReportedCashFlowsModule } from './company-reported-cash-flows/company-reported-cash-flows.module';
 import { TickerModule } from './ticker/ticker.module';
+import { CompanyRoutingModule } from './company/company-routing.module';
+import { CompanyModule } from './company/company.module';
 
 @NgModule({
   declarations: [
@@ -37,11 +39,13 @@ import { TickerModule } from './ticker/ticker.module';
 
     //Application Modules
     SearchModule,
+    CompanyModule,
     CompanyOverviewModule,
     CompanyReportedIncomeStatementsModule,
     CompanyReportedBalanceSheetsModule,
     CompanyReportedCashFlowsModule,
-    TickerModule,
+    // TickerModule,
+
 
     //NGRX MODULES
     StoreModule.forRoot({}),

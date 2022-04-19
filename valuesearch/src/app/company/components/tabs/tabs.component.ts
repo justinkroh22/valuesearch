@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-tabs',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tabs.component.scss']
 })
 export class TabsComponent implements OnInit {
+
+  @Input() tickerSymbol: any;
 
   constructor() { }
 

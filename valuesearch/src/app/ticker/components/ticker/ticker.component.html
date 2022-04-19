@@ -1,11 +1,8 @@
-<p>ticker works!</p>
+<ng-container *ngIf ="(globalQuote$ | async) as globalQuote">
+    <div>{{globalQuote.symbol}}</div>
+    <div>{{globalQuote.price}}</div>
 
-<nav mat-tab-nav-bar>
-    <a mat-tab-link [routerLink]="['company-overview', ticker]">Company Overview</a>
-    <a mat-tab-link [routerLink]="['company-reported-income-statements', ticker]">Income Statement</a>
-    <a mat-tab-link [routerLink]="['company-reported-balance-sheets', ticker]">Balance Sheet</a>
-    <a mat-tab-link [routerLink]="['company-reported-cash-flows', ticker]">Cash Flow</a>
-</nav>
-<router-outlet></router-outlet>
+</ng-container>
+
 
 

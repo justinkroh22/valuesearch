@@ -17,38 +17,43 @@ import { CompanyReportedIncomeStatementsStoreService } from 'src/app/company-rep
 })
 export class CompanyMainComponent implements OnInit {
 
-  companyOverview$?: Observable<CompanyOverview>;
-  companyReportedIncomeStatements$?: Observable<CompanyReportedIncomeStatements>
-  companyReportedBalanceSheets$?: Observable<CompanyReportedBalanceSheets>;
-  companyReportedCashFlows$?: Observable<CompanyReportedCashFlows>
+
+  tickerSymbol: any = this.route.snapshot.paramMap.get('id');
+
+
+  // companyOverview$?: Observable<CompanyOverview>;
+  // companyReportedIncomeStatements$?: Observable<CompanyReportedIncomeStatements>
+  // companyReportedBalanceSheets$?: Observable<CompanyReportedBalanceSheets>;
+  // companyReportedCashFlows$?: Observable<CompanyReportedCashFlows>
 
 
   constructor(
+
     private route: ActivatedRoute,
-    private companyOverviewStoreService: CompanyOverviewStoreService,
-    private companyReportedBalanceSheetsStoreService: CompanyReportedBalanceSheetsStoreService,
-    private companyReportedIncomeStatementsStoreService: CompanyReportedIncomeStatementsStoreService,
-    private companyReportedCashFlowsStoreService: CompanyReportedCashFlowsStoreService,
+    // private companyOverviewStoreService: CompanyOverviewStoreService,
+    // private companyReportedBalanceSheetsStoreService: CompanyReportedBalanceSheetsStoreService,
+    // private companyReportedIncomeStatementsStoreService: CompanyReportedIncomeStatementsStoreService,
+    // private companyReportedCashFlowsStoreService: CompanyReportedCashFlowsStoreService,
 
   ) { }
 
   ngOnInit(): void {
-    this.getById()
+    // this.getById()
   }
 
-  private getIDFromUrl(): any {
-    let id = this.route.snapshot.paramMap.get('id');
+  // private getIDFromUrl(): any {
+  //   let id = this.route.snapshot.paramMap.get('id');
 
-    return id;
-  }
+  //   return id;
+  // }
   
-  getById(): void {
+  // getById(): void {
 
-    let id = this.getIDFromUrl();
-    this.companyOverview$ = this.companyOverviewStoreService.getByKey(id);
-    this.companyReportedIncomeStatements$ = this.companyReportedIncomeStatementsStoreService.getByKey(id);
-    this.companyReportedBalanceSheets$ = this.companyReportedBalanceSheetsStoreService.getByKey(id);
-    this.companyReportedCashFlows$ = this.companyReportedCashFlowsStoreService.getByKey(id);
-  }
+  //   let id = this.getIDFromUrl();
+  //   // this.companyOverview$ = this.companyOverviewStoreService.getByKey(id);
+  //   // this.companyReportedIncomeStatements$ = this.companyReportedIncomeStatementsStoreService.getByKey(id);
+  //   // this.companyReportedBalanceSheets$ = this.companyReportedBalanceSheetsStoreService.getByKey(id);
+  //   // this.companyReportedCashFlows$ = this.companyReportedCashFlowsStoreService.getByKey(id);
+  // }
 
 }
