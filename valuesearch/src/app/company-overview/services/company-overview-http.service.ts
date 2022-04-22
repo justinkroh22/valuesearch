@@ -27,6 +27,8 @@ export class CompanyOverviewHttpService extends DefaultDataService<CompanyOvervi
 
       let url = environment.baseApiUrl + 'query?' + 'function=' + 'OVERVIEW' + '&' + 'symbol=' + key + '&' + 'apikey=' + environment.apiKey;
 
+      console.log("this was called")
+
       return this.http.get<CompanyOverview>(url);
   }
 

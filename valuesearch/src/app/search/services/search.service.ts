@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { SearchMatch } from '../models/SearchMatch';
 import { BestMatch } from '../models/BestMatch';
 import { map } from 'rxjs';
+import { CompanyOverview } from 'src/app/company-overview/models/company-overview';
 
 
 
@@ -56,6 +57,7 @@ cleanBestMatch(bestMatch: BestMatch) {
       currency: bestMatch["8. currency"],
       matchScore: bestMatch["9. matchScore"]
   }
+
 
 
   return searchMatch;

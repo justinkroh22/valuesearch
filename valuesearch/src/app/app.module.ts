@@ -21,6 +21,7 @@ import { CompanyReportedCashFlowsModule } from './company-reported-cash-flows/co
 import { TickerModule } from './ticker/ticker.module';
 import { CompanyRoutingModule } from './company/company-routing.module';
 import { CompanyModule } from './company/company.module';
+import { CompanyValuationModule } from './company-valuation/company-valuation.module';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CompanyModule } from './company/company.module';
     CompanyReportedIncomeStatementsModule,
     CompanyReportedBalanceSheetsModule,
     CompanyReportedCashFlowsModule,
+    CompanyValuationModule,
     // TickerModule,
 
 

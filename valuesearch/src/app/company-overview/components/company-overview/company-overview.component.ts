@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { first, map, Observable, of, tap } from 'rxjs';
 import { CompanyOverview } from '../../models/company-overview';
 import { CompanyOverviewHttpService } from '../../services/company-overview-http.service';
 import { CompanyOverviewStoreService } from '../../services/company-overview-store.service';
@@ -12,16 +12,21 @@ import { CompanyOverviewStoreService } from '../../services/company-overview-sto
 })
 export class CompanyOverviewComponent implements OnInit {
 
+  tickerSymbol: any = this.route.snapshot.paramMap.get('id');
 
-  companyOverview$?: Observable<CompanyOverview>;
+  // companyOverview$?: Observable<CompanyOverview | undefined>;
+
+  companyOverview$: Observable<CompanyOverview | undefined> = this.companyOverviewStoreService.getFromStoreByKey(this.tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
 
   constructor(
     private companyOverviewHttpService: CompanyOverviewHttpService,
-    private companyOverviewStoreService: CompanyOverviewStoreService,
+    public companyOverviewStoreService: CompanyOverviewStoreService,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    console.log(this.tickerSymbol)
 
     this.getById();
   }
@@ -36,7 +41,7 @@ export class CompanyOverviewComponent implements OnInit {
   getById(): void {
 
     let id = this.getIDFromUrl();
-    this.companyOverview$ = this.companyOverviewStoreService.getByKey(id);
+
   }
 
 }

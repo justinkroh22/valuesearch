@@ -1,0 +1,60 @@
+  getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview | undefined> {
+
+    console.log(tickerSymbol)
+
+    let companyOverview$: Observable<CompanyOverview | undefined>;
+
+    companyOverview$ = this.companyOverviewStoreService.getByKey(tickerSymbol);
+
+
+    // companyOverview$ = this.companyOverviewStoreService.getFromCacheByKey(tickerSymbol)
+
+    // companyOverview$ = this.companyOverviewStoreService.entityMap$.pipe(map(entities => entities[tickerSymbol]), first())
+
+    console.log(companyOverview$)
+
+    if(companyOverview$ === undefined) {
+      companyOverview$ = this.companyOverviewStoreService.getByKey(tickerSymbol);
+    }
+    return companyOverview$;
+
+  }
+
+  getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements| undefined> {
+
+    let companyReportedIncomeStatements$: Observable<CompanyReportedIncomeStatements | undefined>;
+
+    companyReportedIncomeStatements$ = this.companyReportedIncomeStatementsStoreService.getFromCacheByKey(tickerSymbol)
+
+    if(companyReportedIncomeStatements$ === undefined) {
+      companyReportedIncomeStatements$ = this.companyReportedIncomeStatementsStoreService.getByKey(tickerSymbol);
+    }
+    return companyReportedIncomeStatements$;
+    
+  }
+
+  getCompanyReportedBalanceSheets(tickerSymbol: string): Observable<CompanyReportedBalanceSheets| undefined> {
+
+    let CompanyReportedBalanceSheets$: Observable<CompanyReportedBalanceSheets | undefined>;
+
+    CompanyReportedBalanceSheets$ = this.companyReportedBalanceSheetsStoreService.getFromCacheByKey(tickerSymbol)
+
+    if(CompanyReportedBalanceSheets$ === undefined) {
+      CompanyReportedBalanceSheets$ = this.companyReportedBalanceSheetsStoreService.getByKey(tickerSymbol);
+    }
+    return CompanyReportedBalanceSheets$;
+    
+  }
+
+  getCompanyReportedCashFlows(tickerSymbol: string): Observable<CompanyReportedCashFlows| undefined> {
+
+    let CompanyReportedCashFlows$: Observable<CompanyReportedCashFlows | undefined>;
+
+    CompanyReportedCashFlows$ = this.companyReportedCashFlowsStoreService.getFromCacheByKey(tickerSymbol)
+
+    if(CompanyReportedCashFlows$ === undefined) {
+      CompanyReportedCashFlows$ = this.companyReportedCashFlowsStoreService.getByKey(tickerSymbol);
+    }
+    return CompanyReportedCashFlows$;
+    
+  }

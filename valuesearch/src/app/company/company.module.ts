@@ -10,6 +10,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { CompanyRoutingModule } from './company-routing.module';
 import { TickerModule } from '../ticker/ticker.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CompanyValuationModule } from '../company-valuation/company-valuation.module';
 
 
 
@@ -21,6 +22,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   imports: [
     CommonModule,
     CompanyRoutingModule,
+    CompanyValuationModule,
     TickerModule,
     CompanyOverviewModule,
     CompanyReportedIncomeStatementsModule,
