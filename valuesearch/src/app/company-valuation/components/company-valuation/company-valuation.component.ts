@@ -12,6 +12,7 @@ import { CompanyReportedCashFlows } from 'src/app/company-reported-cash-flows/mo
 import { CompanyReportedCashFlowsStoreService } from 'src/app/company-reported-cash-flows/services/company-reported-cash-flows-store.service';
 import { CompanyReportedIncomeStatements } from 'src/app/company-reported-income-statements/models/CompanyReportedIncomeStatements';
 import { CompanyReportedIncomeStatementsStoreService } from 'src/app/company-reported-income-statements/services/company-reported-income-statements-store.service';
+import { MetricsService } from '../../services/metrics.service';
 
 @Component({
   selector: 'app-company-valuation',
@@ -22,9 +23,13 @@ export class CompanyValuationComponent implements OnInit {
 
   tickerSymbol: any = 'k';
 
+
+  annualEPS$: any
+  ttmEPS$: any;
+
   // PERatio: any = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome) / parseInt(this.companyOverview?.SharesOutstanding);
 
-  EPS?: any = this.displayEPS()
+  // EPS?: any = this.displayEPS()
   ;
 
   // options: EntityActionOptions
@@ -78,15 +83,15 @@ export class CompanyValuationComponent implements OnInit {
 
 
 
-  companyOverview?: CompanyOverview;
-  companyReportedIncomeStatements?: CompanyReportedIncomeStatements
-  companyReportedBalanceSheets?: CompanyReportedBalanceSheets
-  companyReportedCashFlows?: CompanyReportedCashFlows
+  // companyOverview?: CompanyOverview;
+  // companyReportedIncomeStatements?: CompanyReportedIncomeStatements
+  // companyReportedBalanceSheets?: CompanyReportedBalanceSheets
+  // companyReportedCashFlows?: CompanyReportedCashFlows
 
-  // companyOverview$!: Observable<CompanyOverview | undefined>;
-  // companyReportedIncomeStatements$?: Observable<CompanyReportedIncomeStatements>
-  // companyReportedBalanceSheets$?: Observable<CompanyReportedBalanceSheets>;
-  // companyReportedCashFlows$?: Observable<CompanyReportedCashFlows>
+  companyOverview$?: Observable<CompanyOverview | undefined>;
+  companyReportedIncomeStatements$?: Observable<CompanyReportedIncomeStatements | undefined>
+  companyReportedBalanceSheets$?: Observable<CompanyReportedBalanceSheets | undefined>;
+  companyReportedCashFlows$?: Observable<CompanyReportedCashFlows | undefined>
 
   constructor(
 
@@ -95,54 +100,56 @@ export class CompanyValuationComponent implements OnInit {
     private companyReportedBalanceSheetsStoreService: CompanyReportedBalanceSheetsStoreService,
     private companyReportedIncomeStatementsStoreService: CompanyReportedIncomeStatementsStoreService,
     private companyReportedCashFlowsStoreService: CompanyReportedCashFlowsStoreService,
+    private metricsService: MetricsService
 
   ) { }
 
 
-  ngDoCheck() {
-    this.EPS = this.displayEPS()
-  }
+  // ngDoCheck() {
+  //   this.EPS = this.displayEPS()
+  // }
 
   ngOnInit(): void {
 
     this.tickerSymbol = this.route.snapshot.paramMap.get('id');
 
-    this.getCompanyOverview(this.tickerSymbol).subscribe(companyOverview => this.companyOverview = companyOverview);
-    this.getCompanyReportedIncomeStatements(this.tickerSymbol).subscribe(companyReportedIncomeStatements => this.companyReportedIncomeStatements = companyReportedIncomeStatements)
-    this.getCompanyReportedBalanceSheets(this.tickerSymbol).subscribe(companyReportedBalanceSheets => this.companyReportedBalanceSheets = companyReportedBalanceSheets)
+    this.annualEPS$ = this.metricsService.getAnnualEPS(this.tickerSymbol)
+    this.ttmEPS$ = this.metricsService.getTTMEPS(this.tickerSymbol)
+
+
+    this.companyOverview$ = this.getCompanyOverview(this.tickerSymbol)
+    this.companyReportedBalanceSheets$ = this.getCompanyReportedBalanceSheets(this.tickerSymbol)
+    this.companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(this.tickerSymbol)
+    this.companyReportedCashFlows$ = this.getCompanyReportedCashFlows(this.tickerSymbol)
+
+
+    // this.getCompanyOverview(this.tickerSymbol).subscribe(companyOverview => this.companyOverview = companyOverview);
+    // this.getCompanyReportedIncomeStatements(this.tickerSymbol).subscribe(companyReportedIncomeStatements => this.companyReportedIncomeStatements = companyReportedIncomeStatements)
+    // this.getCompanyReportedBalanceSheets(this.tickerSymbol).subscribe(companyReportedBalanceSheets => this.companyReportedBalanceSheets = companyReportedBalanceSheets)
     // this.getCompanyReportedCashFlows(this.tickerSymbol).subscribe(companyReprotedCashFlows => this.companyReportedCashFlows = companyReprotedCashFlows)
 
-    console.log("test")
+    // console.log("test")
 
-    // this.companyReportedBalanceSheetsStoreService.entities$.subscribe(entities => console.log(entities))
 
-    this.cRBS.annualReports.push(this.balanceSheet)
+    // this.cRBS.annualReports.push(this.balanceSheet)
 
-    // this.companyReportedBalanceSheetsStoreService.addOneToCache(this.cRBS)
-
-    // this.companyOverviewStoreService.addOneToCache({})
-
-    // this.EPS = this.displayEPS()
   }
 
-  // getSharesOutstanding() {
-  //   return this.companyOverview$.pipe(map(companyOverview => companyOverview?.SharesOutstanding))
+
+  // displayEPS() {
+
+  //   console.log("Display EPS")
+
+  //   let netIncome: number = 5;
+  //   let sharesOutstanding: number = 1;
+
+  //   if(this.companyReportedIncomeStatements && this.companyOverview) {
+  //     netIncome = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome);
+  //     sharesOutstanding = parseInt(this.companyOverview?.SharesOutstanding);
+  //   }
+
+  //   return this.calculateEarningsPerShare(netIncome, sharesOutstanding);
   // }
-
-  displayEPS() {
-
-    console.log("Display EPS")
-
-    let netIncome: number = 5;
-    let sharesOutstanding: number = 1;
-
-    if(this.companyReportedIncomeStatements && this.companyOverview) {
-      netIncome = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome);
-      sharesOutstanding = parseInt(this.companyOverview?.SharesOutstanding);
-    }
-
-    return this.calculateEarningsPerShare(netIncome, sharesOutstanding);
-  }
 
   calculateEarningsPerShare(netIncome: number, SharesOutstanding: number) {
   

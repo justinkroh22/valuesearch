@@ -1,16 +1,23 @@
 <p>company-valuation works!</p>
 
-<ng-container *ngIf="(companyReportedBalanceSheets)">
+<!-- <ng-container *ngIf="(companyReportedBalanceSheets)">
     <p>{{EPS}}</p>
-</ng-container>
+</ng-container> -->
 
-{{companyReportedBalanceSheets | json}}
+<!-- {{companyReportedBalanceSheets | json}} -->
 
 <!-- <p>{{companyReportedCashFlows | json}}</p> -->
 <!-- </ng-container> -->
-<!-- 
-<ng-container *ngIf ="(companyReportedIncomeStatements$ | async) as companyReportedIncomeStatements">
 
-    <app-inverse-table [objectList] = "companyReportedIncomeStatements.annualReports" [rowDefList]="rowNamesArray"></app-inverse-table>
+<p>Annual EPS {{annualEPS$ | async}}</p>
 
+<p>TTM EPS {{ttmEPS$ | async}}</p>
+<!-- <ng-container
+ *ngIf =
+    "(companyReportedIncomeStatements$ | async) as companyReportedIncomeStatements
+    && (companyReportedBalanceSheets$ | async) as companyReportedBalanceSheets
+    && (companyReportedCashFlows$ | async) as companyReportedCashFlows
+    && (companyOverview$ | async) as companyOverview
+    "
+>
 </ng-container> -->
