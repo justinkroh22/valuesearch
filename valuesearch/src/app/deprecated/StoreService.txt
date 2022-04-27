@@ -1,0 +1,82 @@
+  // getFromStoreByKey(key: string, options?: FromStoreOptions): Observable<CompanyReportedIncomeStatements | undefined> {
+
+  //   // let companyOverview$: Observable<CompanyOverview | undefined>;
+  //   if(options?.tryQueryRemoteStorageIfKeyNotExists) {
+  //     return this.entityMap$.pipe(map(entities => entities[key])).pipe(tap(entity => this.tryQueryIfKeyNotExists(entity, key)));
+  //   } else {
+  //     return this.entityMap$.pipe(map(entities => entities[key]))
+  //   }
+  // }
+
+  // l: EntityActionOptions
+
+    tryQueryIfKeyNotExists(object: object | undefined, key: string) {
+    if(this.checkObjectUndefined(object)) {
+      this.getByKey(key)
+    }
+
+  }
+
+  checkObjectUndefined(object: object | undefined) {
+
+    if (object == undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+      // return this.entityMap$.pipe(map(entities => entities[key])).pipe(entity => entity? ? (entity : this.handleUndefined(key)));
+
+    // this.keys$.pipe(tap(keys=> console.log(keys)))
+
+    
+    // return this.entityMap$.pipe(map(entities => this.handleDataFromStore(entities[key], key)));
+
+    // return this.getByKey(key)
+
+
+    // return this.entityMap$.pipe(map(entities => this.checkObjectUndefined(entities[key]) ? entities[key]! : this.handleUndefined(key)));
+
+
+
+
+
+
+  handleDataFromStore(object: CompanyReportedIncomeStatements | undefined, key: string): CompanyReportedIncomeStatements {
+
+    let cRIS: CompanyReportedIncomeStatements;
+
+    if(object != undefined) {
+      cRIS = object;
+
+      console.log(cRIS)
+      return cRIS;
+    }
+     else {
+      return this.handleUndefined(key)
+
+    }
+  }
+
+
+
+
+  // getFromStoreByKey(key: string, options?: FromStoreOptions): Observable<CompanyReportedIncomeStatements | undefined> {
+
+  //   // let companyOverview$: Observable<CompanyOverview | undefined>;
+  //   if(options?.tryQueryRemoteStorageIfKeyNotExists) {
+  //     return this.handleUndefined(this.getValueFromKeyOfObservableDictionary(this.entityMap$, key), key)
+  //   } else {
+  //     return this.entityMap$.pipe(map(entities => entities[key]))
+  //   }
+  // }
+
+
+
+
+  // getValueFromKeyOfObservableDictionary(dictionaryObservable$: Observable<Dictionary<CompanyReportedIncomeStatements>>, key: string) {
+
+  //   return dictionaryObservable$.pipe(map(entities => entities[key]? ? entities[key] : this.handleUndefined(key))));
+  // }
+

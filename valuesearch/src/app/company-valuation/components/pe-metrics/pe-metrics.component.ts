@@ -22,27 +22,30 @@ export class PeMetricsComponent implements OnInit {
   ) {
 
    }
-
   ngOnInit(): void {
-
-    this.annualEPS = this.calculateAnnualEPS()
-
+    throw new Error('Method not implemented.');
   }
 
-  calculateAnnualEPS() {
+  // ngOnInit(): void {
 
-    console.log("Display EPS")
+  //   this.annualEPS = this.calculateAnnualEPS()
 
-    let netIncome: number = 0;
-    let sharesOutstanding: number = 0;
+  // }
 
-    if(this.companyReportedIncomeStatements && this.companyOverview) {
-      netIncome = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome);
-      sharesOutstanding = parseInt(this.companyOverview?.SharesOutstanding);
-    }
+  // calculateAnnualEPS() {
 
-    return this.calculateEarningsPerShare(netIncome, sharesOutstanding);
-  }
+  //   console.log("Display EPS")
+
+  //   let netIncome: number = 0;
+  //   let sharesOutstanding: number = 0;
+
+  //   if(this.companyReportedIncomeStatements && this.companyOverview) {
+  //     netIncome = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome);
+  //     sharesOutstanding = parseInt(this.companyOverview?.SharesOutstanding);
+  //   }
+
+  //   return this.calculateEarningsPerShare(netIncome, sharesOutstanding);
+  // }
 
   // calculateTTMEPS() {
 

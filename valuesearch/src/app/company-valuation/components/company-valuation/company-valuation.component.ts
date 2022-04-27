@@ -21,7 +21,7 @@ import { MetricsService } from '../../services/metrics.service';
 })
 export class CompanyValuationComponent implements OnInit {
 
-  tickerSymbol: any = 'k';
+  tickerSymbol: string | null = this.route.snapshot.paramMap.get('id');
 
 
   annualEPS$: any
@@ -30,7 +30,6 @@ export class CompanyValuationComponent implements OnInit {
   // PERatio: any = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome) / parseInt(this.companyOverview?.SharesOutstanding);
 
   // EPS?: any = this.displayEPS()
-  ;
 
   // options: EntityActionOptions
 
@@ -111,16 +110,27 @@ export class CompanyValuationComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.tickerSymbol = this.route.snapshot.paramMap.get('id');
+    // this.companyReportedIncomeStatementsStoreService.checkForKey(this.tickerSymbol).pipe(tap(keyExists => {if keyExists{this.}}))
 
-    this.annualEPS$ = this.metricsService.getAnnualEPS(this.tickerSymbol)
-    this.ttmEPS$ = this.metricsService.getTTMEPS(this.tickerSymbol)
+    // this.companyReportedIncomeStatementsStoreService.getByKey(this.tickerSymbol)
+
+    if(this.tickerSymbol) {
+
+      this.companyReportedIncomeStatementsStoreService.checkOrPopulate(this.tickerSymbol)
+
+      this.annualEPS$ = this.metricsService.getAnnualEPS(this.tickerSymbol)
+      this.ttmEPS$ = this.metricsService.getTTMEPS(this.tickerSymbol)
 
 
-    this.companyOverview$ = this.getCompanyOverview(this.tickerSymbol)
-    this.companyReportedBalanceSheets$ = this.getCompanyReportedBalanceSheets(this.tickerSymbol)
-    this.companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(this.tickerSymbol)
-    this.companyReportedCashFlows$ = this.getCompanyReportedCashFlows(this.tickerSymbol)
+    }
+
+      // this.companyReportedIncomeStatementsStoreService.keys$.subscribe(keys => console.log(keys))
+
+
+    // this.companyOverview$ = this.getCompanyOverview(this.tickerSymbol)
+    // this.companyReportedBalanceSheets$ = this.getCompanyReportedBalanceSheets(this.tickerSymbol)
+    // this.companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(this.tickerSymbol)
+    // this.companyReportedCashFlows$ = this.getCompanyReportedCashFlows(this.tickerSymbol)
 
 
     // this.getCompanyOverview(this.tickerSymbol).subscribe(companyOverview => this.companyOverview = companyOverview);
@@ -160,31 +170,31 @@ export class CompanyValuationComponent implements OnInit {
 
   }
 
-  getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview | undefined> {
+  // getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview | undefined> {
 
-    // let companyOverview$: Observable<CompanyOverview | undefined>;
+  //   // let companyOverview$: Observable<CompanyOverview | undefined>;
 
-    return this.companyOverviewStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true});
+  //   return this.companyOverviewStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true});
 
-  }
+  // }
 
-  getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements| undefined> {
+  // getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements| undefined> {
 
-    // let companyReportedIncomeStatements$: Observable<CompanyReportedIncomeStatements | undefined>;
+  //   // let companyReportedIncomeStatements$: Observable<CompanyReportedIncomeStatements | undefined>;
 
-    return this.companyReportedIncomeStatementsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
-  }
+  //   return this.companyReportedIncomeStatementsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
+  // }
 
-  getCompanyReportedBalanceSheets(tickerSymbol: string): Observable<CompanyReportedBalanceSheets| undefined> {
+  // getCompanyReportedBalanceSheets(tickerSymbol: string): Observable<CompanyReportedBalanceSheets| undefined> {
 
-    // let CompanyReportedBalanceSheets$: Observable<CompanyReportedBalanceSheets | undefined>;
-    return this.companyReportedBalanceSheetsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
+  //   // let CompanyReportedBalanceSheets$: Observable<CompanyReportedBalanceSheets | undefined>;
+  //   return this.companyReportedBalanceSheetsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
 
-  }
+  // }
 
-  getCompanyReportedCashFlows(tickerSymbol: string): Observable<CompanyReportedCashFlows| undefined> {
-    // let CompanyReportedCashFlows$: Observable<CompanyReportedCashFlows | undefined>;
-    return this.companyReportedCashFlowsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
-  }
+  // getCompanyReportedCashFlows(tickerSymbol: string): Observable<CompanyReportedCashFlows| undefined> {
+  //   // let CompanyReportedCashFlows$: Observable<CompanyReportedCashFlows | undefined>;
+  //   return this.companyReportedCashFlowsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
+  // }
 
 }

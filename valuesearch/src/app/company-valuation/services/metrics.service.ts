@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { select } from '@ngrx/store';
 import { combineLatest, map, merge, Observable, tap } from 'rxjs';
 import { CompanyOverview } from 'src/app/company-overview/models/company-overview';
 import { CompanyOverviewStoreService } from 'src/app/company-overview/services/company-overview-store.service';
@@ -33,6 +34,9 @@ export class MetricsService {
   ) { }
 
 
+  // cRISLoaded$ = this.companyReportedIncomeStatementsStoreService.loaded$
+
+
   getSharesOutstanding(tickerSymbol: string): Observable<number> {
 
     let companyOverview$ = this.getCompanyOverview(tickerSymbol)
@@ -40,11 +44,19 @@ export class MetricsService {
     return companyOverview$.pipe(map(companyOverview => (companyOverview?.SharesOutstanding ? parseInt(companyOverview.SharesOutstanding) : 0)))
   }
 
+  // getAnnualNetIncome(tickerSymbol: string): Observable<number> {
+    
+  //   let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
+
+  //   return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.annualReports[0].netIncome ? cRIS.annualReports[0].netIncome : 0 )))
+
+  // }
+
   getAnnualNetIncome(tickerSymbol: string): Observable<number> {
     
     let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
 
-    return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.annualReports[0].netIncome ? parseInt(cRIS.annualReports[0].netIncome) : 0 )))
+    return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.annualReports[0].netIncome)));
 
   }
 
@@ -52,7 +64,9 @@ export class MetricsService {
 
     let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
 
-    return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.quarterlyReports ? this.calculateTTMNetIncome(cRIS.quarterlyReports) : 0 )))
+    // this.companyReportedIncomeStatementsStoreService.loaded$.pipe()
+
+    return companyReportedIncomeStatements$.pipe(map(cRIS => this.calculateTTMNetIncome(cRIS.quarterlyReports)))
 
 
   }
@@ -62,7 +76,9 @@ export class MetricsService {
     let ttmNetIncome: number = 0;
 
     for(let i = 0; i < 3; i ++) {
-      ttmNetIncome = ttmNetIncome + parseInt(quarterlyIncomeStatements[i].netIncome)
+
+      if(i < quarterlyIncomeStatements.length)
+      ttmNetIncome = ttmNetIncome + quarterlyIncomeStatements[i].netIncome
     }
 
     return ttmNetIncome;
@@ -106,7 +122,7 @@ export class MetricsService {
 
   }
 
-  getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements| undefined> {
+  getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements> {
 
     // let companyReportedIncomeStatements$: Observable<CompanyReportedIncomeStatements | undefined>;
 

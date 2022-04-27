@@ -14,9 +14,9 @@ export class CompanyOverviewComponent implements OnInit {
 
   tickerSymbol: any = this.route.snapshot.paramMap.get('id');
 
-  // companyOverview$?: Observable<CompanyOverview | undefined>;
+  companyOverview$?: Observable<CompanyOverview | undefined>;
 
-  companyOverview$: Observable<CompanyOverview | undefined> = this.companyOverviewStoreService.getFromStoreByKey(this.tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
+  // companyOverview$: Observable<CompanyOverview | undefined>;
 
   constructor(
     private companyOverviewHttpService: CompanyOverviewHttpService,

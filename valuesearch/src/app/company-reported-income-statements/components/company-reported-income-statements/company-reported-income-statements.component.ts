@@ -64,6 +64,6 @@ export class CompanyReportedIncomeStatementsComponent implements OnInit {
   getById(): void {
 
     let id = this.getIDFromUrl();
-    this.companyReportedIncomeStatements$ = this.companyReportedIncomeStatementsStoreService.getByKey(id);
+    // this.companyReportedIncomeStatements$ = this.companyReportedIncomeStatementsStoreService.getByKey(id);
   }
 }
