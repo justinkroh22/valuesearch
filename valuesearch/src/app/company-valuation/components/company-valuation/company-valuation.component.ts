@@ -23,74 +23,19 @@ export class CompanyValuationComponent implements OnInit {
 
   tickerSymbol: string | null = this.route.snapshot.paramMap.get('id');
 
-
+  sharesOutstanding$: any
   annualEPS$: any
   ttmEPS$: any;
-
-  // PERatio: any = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome) / parseInt(this.companyOverview?.SharesOutstanding);
-
-  // EPS?: any = this.displayEPS()
-
-  // options: EntityActionOptions
-
-  cRBS: CompanyReportedBalanceSheets = {
-    symbol: 'JKJK',
-    annualReports: [],
-    quarterlyReports: []
-  }
-
-  balanceSheet: AnnualBalanceSheet = {
-    fiscalDateEnding: '',
-    reportedCurrency: '',
-    totalAssets: '',
-    totalCurrentAssets: '',
-    cashAndCashEquivalentsAtCarryingValue: '',
-    cashAndShortTermInvestments: '',
-    inventory: '',
-    currentNetReceivables: '',
-    totalNonCurrentAssets: '',
-    propertyPlantEquipment: '',
-    accumulatedDepreciationAmortizationPPE: '',
-    intangibleAssets: '',
-    intangibleAssetsExcludingGoodwill: '',
-    goodwill: '',
-    investments: '',
-    longTermInvestments: '',
-    shortTermInvestments: '',
-    otherCurrentAssets: '',
-    otherNonCurrrentAssets: '',
-    totalLiabilities: '',
-    totalCurrentLiabilities: '',
-    currentAccountsPayable: '',
-    deferredRevenue: '',
-    currentDebt: '',
-    shortTermDebt: '',
-    totalNonCurrentLiabilities: '',
-    capitalLeaseObligations: '',
-    longTermDebt: '',
-    currentLongTermDebt: '',
-    longTermDebtNoncurrent: '',
-    shortLongTermDebtTotal: '',
-    otherCurrentLiabilities: '',
-    otherNonCurrentLiabilities: '',
-    totalShareholderEquity: '',
-    treasuryStock: '',
-    retainedEarnings: '',
-    commonStock: '',
-    commonStockSharesOutstanding: ''
-  }
-
-
 
   // companyOverview?: CompanyOverview;
   // companyReportedIncomeStatements?: CompanyReportedIncomeStatements
   // companyReportedBalanceSheets?: CompanyReportedBalanceSheets
   // companyReportedCashFlows?: CompanyReportedCashFlows
 
-  companyOverview$?: Observable<CompanyOverview | undefined>;
-  companyReportedIncomeStatements$?: Observable<CompanyReportedIncomeStatements | undefined>
-  companyReportedBalanceSheets$?: Observable<CompanyReportedBalanceSheets | undefined>;
-  companyReportedCashFlows$?: Observable<CompanyReportedCashFlows | undefined>
+  // companyOverview$?: Observable<CompanyOverview | undefined>;
+  // companyReportedIncomeStatements$?: Observable<CompanyReportedIncomeStatements | undefined>
+  // companyReportedBalanceSheets$?: Observable<CompanyReportedBalanceSheets | undefined>;
+  // companyReportedCashFlows$?: Observable<CompanyReportedCashFlows | undefined>
 
   constructor(
 
@@ -103,29 +48,18 @@ export class CompanyValuationComponent implements OnInit {
 
   ) { }
 
-
-  // ngDoCheck() {
-  //   this.EPS = this.displayEPS()
-  // }
-
   ngOnInit(): void {
-
-    // this.companyReportedIncomeStatementsStoreService.checkForKey(this.tickerSymbol).pipe(tap(keyExists => {if keyExists{this.}}))
-
-    // this.companyReportedIncomeStatementsStoreService.getByKey(this.tickerSymbol)
 
     if(this.tickerSymbol) {
 
       this.companyReportedIncomeStatementsStoreService.checkOrPopulate(this.tickerSymbol)
+      this.companyOverviewStoreService.checkOrPopulate(this.tickerSymbol)
 
       this.annualEPS$ = this.metricsService.getAnnualEPS(this.tickerSymbol)
       this.ttmEPS$ = this.metricsService.getTTMEPS(this.tickerSymbol)
-
+      this.sharesOutstanding$ = this.metricsService.getSharesOutstanding(this.tickerSymbol)
 
     }
-
-      // this.companyReportedIncomeStatementsStoreService.keys$.subscribe(keys => console.log(keys))
-
 
     // this.companyOverview$ = this.getCompanyOverview(this.tickerSymbol)
     // this.companyReportedBalanceSheets$ = this.getCompanyReportedBalanceSheets(this.tickerSymbol)
@@ -138,35 +72,6 @@ export class CompanyValuationComponent implements OnInit {
     // this.getCompanyReportedBalanceSheets(this.tickerSymbol).subscribe(companyReportedBalanceSheets => this.companyReportedBalanceSheets = companyReportedBalanceSheets)
     // this.getCompanyReportedCashFlows(this.tickerSymbol).subscribe(companyReprotedCashFlows => this.companyReportedCashFlows = companyReprotedCashFlows)
 
-    // console.log("test")
-
-
-    // this.cRBS.annualReports.push(this.balanceSheet)
-
-  }
-
-
-  // displayEPS() {
-
-  //   console.log("Display EPS")
-
-  //   let netIncome: number = 5;
-  //   let sharesOutstanding: number = 1;
-
-  //   if(this.companyReportedIncomeStatements && this.companyOverview) {
-  //     netIncome = parseInt(this.companyReportedIncomeStatements?.annualReports[0].netIncome);
-  //     sharesOutstanding = parseInt(this.companyOverview?.SharesOutstanding);
-  //   }
-
-  //   return this.calculateEarningsPerShare(netIncome, sharesOutstanding);
-  // }
-
-  calculateEarningsPerShare(netIncome: number, SharesOutstanding: number) {
-  
-    return netIncome / SharesOutstanding;
-  }
-
-  calculateTrailingPERatio(stockPrice: any, earningsPerShare: any) {
 
   }
 

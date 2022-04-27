@@ -75,8 +75,8 @@ export class CompanyReportedIncomeStatementsStoreService extends EntityCollectio
     // console.log(key)
 
     // return this.keys$.pipe(map((keys: any[]) => !!keys.find(keyName => keyName == key)),first())
-    this.entityMap$.subscribe(entity => console.log(entity[key.toUpperCase()]))
-    return this.entityMap$.pipe(map(entities => !!entities[key.toUpperCase()]), first())
+    // this.entityMap$.subscribe(entity => console.log(entity[key.toUpperCase()]))
+    return this.entityMap$.pipe(map(entities => !!entities[key]), first())
 
   }
 

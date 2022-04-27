@@ -13,36 +13,36 @@ export interface CompanyOverview {
     FiscalYearEnd: string
     LatestQuarter: string
     MarketCapitalization: string
-    EBITDA: string
-    PERatio: string
-    PEGRatio: string
-    BookValue: string
-    DividendPerShare: string
+    EBITDA: number
+    PERatio: number
+    PEGRatio: number
+    BookValue: number
+    DividendPerShare: number
     DividendYield: string
-    EPS: string
-    RevenuePerShareTTM: string
-    ProfitMargin: string
-    OperatingMarginTTM: string
-    ReturnOnAssetsTTM: string
-    ReturnOnEquityTTM: string
-    RevenueTTM: string
-    GrossProfitTTM: string
-    DilutedEPSTTM: string
-    QuarterlyEarningsGrowthYOY: string
-    QuarterlyRevenueGrowthYOY: string
-    AnalystTargetPrice: string
-    TrailingPE: string
-    ForwardPE: string
-    PriceToSalesRatioTTM: string
-    PriceToBookRatio: string
-    EVToRevenue: string
-    EVToEBITDA: string
-    Beta: string
-    "52WeekHigh": string
-    "52WeekLow": string
-    "50DayMovingAverage": string
-    "200DayMovingAverage": string
-    SharesOutstanding: string
+    EPS: number
+    RevenuePerShareTTM: number
+    ProfitMargin: number
+    OperatingMarginTTM: number
+    ReturnOnAssetsTTM: number
+    ReturnOnEquityTTM: number
+    RevenueTTM: number
+    GrossProfitTTM: number
+    DilutedEPSTTM: number
+    QuarterlyEarningsGrowthYOY: number
+    QuarterlyRevenueGrowthYOY: number
+    AnalystTargetPrice: number
+    TrailingPE: number
+    ForwardPE: number
+    PriceToSalesRatioTTM: number
+    PriceToBookRatio: number
+    EVToRevenue: number
+    EVToEBITDA: number
+    Beta: number
+    WeekHigh52: number
+    WeekLow52: number
+    MovingAverage50: number
+    MovingAverage200: number
+    SharesOutstanding: number
     DividendDate: string
     ExDividendDate: string
   }

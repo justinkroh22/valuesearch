@@ -72,6 +72,19 @@
   //   }
   // }
 
+  // getAnnualNetIncome(tickerSymbol: string): Observable<number> {
+    
+  //   let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
+
+  //   return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.annualReports[0].netIncome ? cRIS.annualReports[0].netIncome : 0 )))
+
+  // }
+
+
+  getValueFromObservableDictionary(dictionaryObservable$: Observable<Dictionary<CompanyOverview>>, key: string) {
+
+    return dictionaryObservable$.pipe(map(entities => entities[key]));
+  }
 
 
 
@@ -79,4 +92,52 @@
 
   //   return dictionaryObservable$.pipe(map(entities => entities[key]? ? entities[key] : this.handleUndefined(key))));
   // }
+
+  
+  cRBS: CompanyReportedBalanceSheets = {
+    symbol: 'JKJK',
+    annualReports: [],
+    quarterlyReports: []
+  }
+
+  balanceSheet: AnnualBalanceSheet = {
+    fiscalDateEnding: '',
+    reportedCurrency: '',
+    totalAssets: '',
+    totalCurrentAssets: '',
+    cashAndCashEquivalentsAtCarryingValue: '',
+    cashAndShortTermInvestments: '',
+    inventory: '',
+    currentNetReceivables: '',
+    totalNonCurrentAssets: '',
+    propertyPlantEquipment: '',
+    accumulatedDepreciationAmortizationPPE: '',
+    intangibleAssets: '',
+    intangibleAssetsExcludingGoodwill: '',
+    goodwill: '',
+    investments: '',
+    longTermInvestments: '',
+    shortTermInvestments: '',
+    otherCurrentAssets: '',
+    otherNonCurrrentAssets: '',
+    totalLiabilities: '',
+    totalCurrentLiabilities: '',
+    currentAccountsPayable: '',
+    deferredRevenue: '',
+    currentDebt: '',
+    shortTermDebt: '',
+    totalNonCurrentLiabilities: '',
+    capitalLeaseObligations: '',
+    longTermDebt: '',
+    currentLongTermDebt: '',
+    longTermDebtNoncurrent: '',
+    shortLongTermDebtTotal: '',
+    otherCurrentLiabilities: '',
+    otherNonCurrentLiabilities: '',
+    totalShareholderEquity: '',
+    treasuryStock: '',
+    retainedEarnings: '',
+    commonStock: '',
+    commonStockSharesOutstanding: ''
+  }
 

@@ -41,16 +41,10 @@ export class MetricsService {
 
     let companyOverview$ = this.getCompanyOverview(tickerSymbol)
 
-    return companyOverview$.pipe(map(companyOverview => (companyOverview?.SharesOutstanding ? parseInt(companyOverview.SharesOutstanding) : 0)))
+    return companyOverview$.pipe(map(companyOverview => (companyOverview.SharesOutstanding)))
   }
 
-  // getAnnualNetIncome(tickerSymbol: string): Observable<number> {
-    
-  //   let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
 
-  //   return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.annualReports[0].netIncome ? cRIS.annualReports[0].netIncome : 0 )))
-
-  // }
 
   getAnnualNetIncome(tickerSymbol: string): Observable<number> {
     
@@ -88,11 +82,11 @@ export class MetricsService {
 
   getAnnualEPS(tickerSymbol: string): Observable<number> {
 
-  let sharesOutstanding$ = this.getSharesOutstanding(tickerSymbol)
+    let sharesOutstanding$ = this.getSharesOutstanding(tickerSymbol)
 
-  let netIncome$ = this.getAnnualNetIncome(tickerSymbol)
+    let netIncome$ = this.getAnnualNetIncome(tickerSymbol)
 
-  let annualEPS$ = this.calculateEPS(sharesOutstanding$, netIncome$)
+    let annualEPS$ = this.calculateEPS(sharesOutstanding$, netIncome$)
 
   return annualEPS$;
 
@@ -114,7 +108,7 @@ export class MetricsService {
   }
 
 
-  getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview | undefined> {
+  getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview> {
 
     // let companyOverview$: Observable<CompanyOverview | undefined>;
 
