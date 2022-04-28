@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GlobalQuote } from '../../models/GlobalQuote';
 import { GlobalQuoteHttpService } from '../../services/global-quote-http.service';
+import { GlobalQuoteStoreService } from '../../services/global-quote-store.service';
 
 @Component({
   selector: 'app-ticker',
@@ -19,7 +20,8 @@ export class TickerComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private globalQuoteHttpService: GlobalQuoteHttpService
+    private globalQuoteHttpService: GlobalQuoteHttpService,
+    private globalQuoteStoreService: GlobalQuoteStoreService
 
   ) {
 
@@ -27,7 +29,7 @@ export class TickerComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.globalQuote$ = this.globalQuoteHttpService.getById(this.tickerSymbol)
+    this.globalQuote$ = this.globalQuoteStoreService.getByKey(this.tickerSymbol)
   }
 
 

@@ -20,6 +20,8 @@ export class GlobalQuoteHttpService extends DefaultDataService<GlobalQuote> {
 
   override getById(key: string | number): Observable<GlobalQuote> {
 
+      console.log("Global Qoute HTTP Called")
+
       let url = environment.baseApiUrl + 'query?' + 'function=' + 'GLOBAL_QUOTE' + '&' + 'symbol=' + key + '&' + 'apikey=' + environment.apiKey;
 
       return this.http.get<GlobalQuoteDataAV>(url).pipe(map(globalQouteDataAV => globalQouteDataAV['Global Quote'])).pipe(map(globalQouteAV => this.cleanGlobalQuoteAV(globalQouteAV)));
@@ -29,14 +31,14 @@ export class GlobalQuoteHttpService extends DefaultDataService<GlobalQuote> {
 
     let globalQuote: GlobalQuote = {
       symbol: globalQuoteAV['01. symbol'],
-      open: globalQuoteAV['02. open'],
-      high: globalQuoteAV['03. high'],
-      low: globalQuoteAV['04. low'],
-      price: globalQuoteAV['05. price'],
-      volume: globalQuoteAV['06. volume'],
+      open: parseInt(globalQuoteAV['02. open']),
+      high: parseInt(globalQuoteAV['03. high']),
+      low: parseInt(globalQuoteAV['04. low']),
+      price: parseInt(globalQuoteAV['05. price']),
+      volume: parseInt(globalQuoteAV['06. volume']),
       latestTradingDay: globalQuoteAV['07. latest trading day'],
-      previousClose: globalQuoteAV['08. previous close'],
-      change: globalQuoteAV['09. change'],
+      previousClose: parseInt(globalQuoteAV['08. previous close']),
+      change: parseInt(globalQuoteAV['09. change']),
       changePercent: globalQuoteAV['10. change percent']
     }
   

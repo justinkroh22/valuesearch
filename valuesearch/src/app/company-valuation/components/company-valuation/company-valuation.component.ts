@@ -26,6 +26,7 @@ export class CompanyValuationComponent implements OnInit {
   sharesOutstanding$: any
   annualEPS$: any
   ttmEPS$: any;
+  ttmPE$: any;
 
   // companyOverview?: CompanyOverview;
   // companyReportedIncomeStatements?: CompanyReportedIncomeStatements
@@ -55,9 +56,10 @@ export class CompanyValuationComponent implements OnInit {
       this.companyReportedIncomeStatementsStoreService.checkOrPopulate(this.tickerSymbol)
       this.companyOverviewStoreService.checkOrPopulate(this.tickerSymbol)
 
-      this.annualEPS$ = this.metricsService.getAnnualEPS(this.tickerSymbol)
-      this.ttmEPS$ = this.metricsService.getTTMEPS(this.tickerSymbol)
-      this.sharesOutstanding$ = this.metricsService.getSharesOutstanding(this.tickerSymbol)
+      this.annualEPS$ = this.metricsService.getAnnualEPSGAAP$(this.tickerSymbol)
+      this.ttmEPS$ = this.metricsService.getTTMEPSGAAP$(this.tickerSymbol)
+      this.sharesOutstanding$ = this.companyOverviewStoreService.getSharesOutstanding$(this.tickerSymbol)
+      this.ttmPE$ = this.metricsService.getTTMPEGAAP$(this.tickerSymbol)
 
     }
 

@@ -70,7 +70,7 @@ export class CompanyOverviewStoreService extends EntityCollectionServiceBase<Com
 
   getFromStoreByKey(key: string, options?: FromStoreOptions): Observable<CompanyOverview> {
 
-    console.log(key)
+    // console.log(key)
 
     return this.entityMap$.pipe().pipe(map(entities => entities[key] ? entities[key]! : this.handleUndefined(key)));
 
@@ -93,7 +93,7 @@ export class CompanyOverviewStoreService extends EntityCollectionServiceBase<Com
 
   
       {
-        console.log(boolean)
+        // console.log(boolean)
         if(boolean == false){
 
           this.getByKey(key)
@@ -101,6 +101,14 @@ export class CompanyOverviewStoreService extends EntityCollectionServiceBase<Com
       },
       );
 
+  }
+
+  
+  getSharesOutstanding$(tickerSymbol: string): Observable<number> {
+
+    let companyOverview$ = this.getFromStoreByKey(tickerSymbol)
+
+    return companyOverview$.pipe(map(companyOverview => (companyOverview.SharesOutstanding)))
   }
 
 

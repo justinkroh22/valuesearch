@@ -6,6 +6,7 @@ import { FromStore } from 'src/app/utility/FromStore';
 import { FromStoreOptions } from 'src/app/utility/FromStoreOptions';
 import { CompanyReportedIncomeStatements } from '../models/CompanyReportedIncomeStatements';
 import { IncomeStatement } from '../models/IncomeStatement';
+import { QuarterlyIncomeStatement } from '../models/QuarterlyIncomeStatement';
 
 @Injectable()
 export class CompanyReportedIncomeStatementsStoreService extends EntityCollectionServiceBase<CompanyReportedIncomeStatements> implements FromStore<CompanyReportedIncomeStatements>{
@@ -63,7 +64,7 @@ export class CompanyReportedIncomeStatementsStoreService extends EntityCollectio
 
   getFromStoreByKey(key: string, options?: FromStoreOptions): Observable<CompanyReportedIncomeStatements> {
 
-    console.log(key)
+    // console.log(key)
 
     return this.entityMap$.pipe().pipe(map(entities => !!entities[key] ? entities[key]! : this.handleUndefined(key)));
 
@@ -82,13 +83,13 @@ export class CompanyReportedIncomeStatementsStoreService extends EntityCollectio
 
   checkOrPopulate(key: string) {
 
-    console.log(key)
+    // console.log(key)
 
     this.checkForKey(key).pipe().subscribe(boolean => 
 
   
       {
-        console.log(boolean)
+        // console.log(boolean)
         if(boolean == false){
 
           this.getByKey(key)
@@ -97,5 +98,39 @@ export class CompanyReportedIncomeStatementsStoreService extends EntityCollectio
       );
 
   }
+
+
+  getAnnualNetIncomeGAAP$(tickerSymbol: string): Observable<number> {
+    
+    let companyReportedIncomeStatements$ = this.getFromStoreByKey(tickerSymbol)
+
+    return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS.annualReports[0].netIncome)));
+
+  }
+
+  getTTMNetIncomeGAAP$(tickerSymbol: string) {
+
+    let companyReportedIncomeStatements$ = this.getFromStoreByKey(tickerSymbol)
+
+    return companyReportedIncomeStatements$.pipe(map(cRIS => this.calculateTTMNetIncomeGAAP(cRIS.quarterlyReports)))
+
+
+  }
+
+  calculateTTMNetIncomeGAAP(quarterlyIncomeStatements: QuarterlyIncomeStatement[]): number {
+
+    let ttmNetIncome: number = 0;
+
+    for(let i = 0; i < 3; i ++) {
+
+      if(i < quarterlyIncomeStatements.length)
+      ttmNetIncome = ttmNetIncome + quarterlyIncomeStatements[i].netIncome
+    }
+
+    return ttmNetIncome;
+
+  }
+
+
 
 }

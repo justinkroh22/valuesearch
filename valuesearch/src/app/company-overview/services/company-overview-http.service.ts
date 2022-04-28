@@ -28,7 +28,7 @@ export class CompanyOverviewHttpService extends DefaultDataService<CompanyOvervi
 
       let url = environment.baseApiUrl + 'query?' + 'function=' + 'OVERVIEW' + '&' + 'symbol=' + key + '&' + 'apikey=' + environment.apiKey;
 
-      console.log("this was called")
+      console.log("Company Overview HTTP called")
 
       return this.http.get<CompanyOverviewDAO>(url).pipe(map(companyOverviewDAO => this.constructCompanyOverviewFromDAO(companyOverviewDAO)));
   }

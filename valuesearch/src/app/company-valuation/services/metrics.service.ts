@@ -10,6 +10,8 @@ import { CompanyReportedCashFlowsStoreService } from 'src/app/company-reported-c
 import { CompanyReportedIncomeStatements } from 'src/app/company-reported-income-statements/models/CompanyReportedIncomeStatements';
 import { QuarterlyIncomeStatement } from 'src/app/company-reported-income-statements/models/QuarterlyIncomeStatement';
 import { CompanyReportedIncomeStatementsStoreService } from 'src/app/company-reported-income-statements/services/company-reported-income-statements-store.service';
+import { GlobalQuoteStoreService } from 'src/app/ticker/services/global-quote-store.service';
+import { ObservableMath } from 'src/app/utility/ObservableMath';
 
 @Injectable()
 export class MetricsService {
@@ -27,6 +29,7 @@ export class MetricsService {
   // companyReportedCashFlows$ = this.getCompanyReportedCashFlows(this.tickerSymbol)
 
   constructor(
+    private globalQuoteStoreService: GlobalQuoteStoreService,
     private companyOverviewStoreService: CompanyOverviewStoreService,
     private companyReportedBalanceSheetsStoreService: CompanyReportedBalanceSheetsStoreService,
     private companyReportedIncomeStatementsStoreService: CompanyReportedIncomeStatementsStoreService,
@@ -34,106 +37,61 @@ export class MetricsService {
   ) { }
 
 
-  // cRISLoaded$ = this.companyReportedIncomeStatementsStoreService.loaded$
+  getTTMPEGAAP$(tickerSymbol: string) {
+    let sharePrice$ = this.globalQuoteStoreService.getSharePrice(tickerSymbol)
+    let eps$ = this.getTTMEPSGAAP$(tickerSymbol)
 
-
-  getSharesOutstanding(tickerSymbol: string): Observable<number> {
-
-    let companyOverview$ = this.getCompanyOverview(tickerSymbol)
-
-    return companyOverview$.pipe(map(companyOverview => (companyOverview.SharesOutstanding)))
-  }
-
-
-
-  getAnnualNetIncome(tickerSymbol: string): Observable<number> {
-    
-    let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
-
-    return companyReportedIncomeStatements$.pipe(map(cRIS => (cRIS?.annualReports[0].netIncome)));
+    return ObservableMath.divideObvservable$(sharePrice$, eps$);
 
   }
 
-  getTTMNetIncome(tickerSymbol: string) {
+  getAnnualEPSGAAP$(tickerSymbol: string): Observable<number> {
 
-    let companyReportedIncomeStatements$ = this.getCompanyReportedIncomeStatements(tickerSymbol)
+    let sharesOutstanding$ = this.companyOverviewStoreService.getSharesOutstanding$(tickerSymbol)
 
-    // this.companyReportedIncomeStatementsStoreService.loaded$.pipe()
+    let annualNetIncomeGAAP$ = this.companyReportedIncomeStatementsStoreService.getAnnualNetIncomeGAAP$(tickerSymbol)
 
-    return companyReportedIncomeStatements$.pipe(map(cRIS => this.calculateTTMNetIncome(cRIS.quarterlyReports)))
+    return ObservableMath.divideObvservable$(annualNetIncomeGAAP$, sharesOutstanding$)
+
+  }
+
+  getTTMEPSGAAP$(tickerSymbol: string): Observable<number> {
+
+    let sharesOutstanding$ = this.companyOverviewStoreService.getSharesOutstanding$(tickerSymbol)
+
+    let ttmNetIncomeGAAP$ = this.companyReportedIncomeStatementsStoreService.getAnnualNetIncomeGAAP$(tickerSymbol)
+
+    return ObservableMath.divideObvservable$(ttmNetIncomeGAAP$, sharesOutstanding$)
 
 
   }
 
-  calculateTTMNetIncome(quarterlyIncomeStatements: QuarterlyIncomeStatement[]): number {
+  // getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview> {
 
-    let ttmNetIncome: number = 0;
+  //   // let companyOverview$: Observable<CompanyOverview | undefined>;
 
-    for(let i = 0; i < 3; i ++) {
+  //   return this.companyOverviewStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true});
 
-      if(i < quarterlyIncomeStatements.length)
-      ttmNetIncome = ttmNetIncome + quarterlyIncomeStatements[i].netIncome
-    }
+  // }
 
-    return ttmNetIncome;
+  // getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements> {
 
-  }
+  //   // let companyReportedIncomeStatements$: Observable<CompanyReportedIncomeStatements | undefined>;
 
+  //   return this.companyReportedIncomeStatementsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
+  // }
 
-  getAnnualEPS(tickerSymbol: string): Observable<number> {
+  // getCompanyReportedBalanceSheets(tickerSymbol: string): Observable<CompanyReportedBalanceSheets| undefined> {
 
-    let sharesOutstanding$ = this.getSharesOutstanding(tickerSymbol)
+  //   // let CompanyReportedBalanceSheets$: Observable<CompanyReportedBalanceSheets | undefined>;
+  //   return this.companyReportedBalanceSheetsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
 
-    let netIncome$ = this.getAnnualNetIncome(tickerSymbol)
+  // }
 
-    let annualEPS$ = this.calculateEPS(sharesOutstanding$, netIncome$)
-
-  return annualEPS$;
-
-  }
-
-  getTTMEPS(tickerSymbol: string): Observable<number> {
-
-    return this.calculateEPS(this.getSharesOutstanding(tickerSymbol), this.getTTMNetIncome(tickerSymbol))
-
-  }
-
-
-
-  calculateEPS(sharesOutstanding$: Observable<number>, netIncome$: Observable<number>): Observable<number> {
-
-    let EPS$ = combineLatest([sharesOutstanding$, netIncome$]).pipe(map(([sharesOutstanding,netIncome]) =>  netIncome / sharesOutstanding));
-
-    return EPS$;
-  }
-
-
-  getCompanyOverview(tickerSymbol: string): Observable<CompanyOverview> {
-
-    // let companyOverview$: Observable<CompanyOverview | undefined>;
-
-    return this.companyOverviewStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true});
-
-  }
-
-  getCompanyReportedIncomeStatements(tickerSymbol: string): Observable<CompanyReportedIncomeStatements> {
-
-    // let companyReportedIncomeStatements$: Observable<CompanyReportedIncomeStatements | undefined>;
-
-    return this.companyReportedIncomeStatementsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
-  }
-
-  getCompanyReportedBalanceSheets(tickerSymbol: string): Observable<CompanyReportedBalanceSheets| undefined> {
-
-    // let CompanyReportedBalanceSheets$: Observable<CompanyReportedBalanceSheets | undefined>;
-    return this.companyReportedBalanceSheetsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
-
-  }
-
-  getCompanyReportedCashFlows(tickerSymbol: string): Observable<CompanyReportedCashFlows| undefined> {
-    // let CompanyReportedCashFlows$: Observable<CompanyReportedCashFlows | undefined>;
-    return this.companyReportedCashFlowsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
-  }
+  // getCompanyReportedCashFlows(tickerSymbol: string): Observable<CompanyReportedCashFlows| undefined> {
+  //   // let CompanyReportedCashFlows$: Observable<CompanyReportedCashFlows | undefined>;
+  //   return this.companyReportedCashFlowsStoreService.getFromStoreByKey(tickerSymbol, {tryQueryRemoteStorageIfKeyNotExists: true})
+  // }
 
 
 

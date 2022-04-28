@@ -18,6 +18,9 @@ export class CompanyReportedBalanceSheetsHttpService extends DefaultDataService<
 
   override getById(key: string | number): Observable<CompanyReportedBalanceSheets> {
 
+    console.log("CRBS HTTP Called")
+
+
       let url = environment.baseApiUrl + 'query?' + 'function=' + 'BALANCE_SHEET' + '&' + 'symbol=' + key + '&' + 'apikey=' + environment.apiKey;
 
       return this.http.get<CompanyReportedBalanceSheets>(url);

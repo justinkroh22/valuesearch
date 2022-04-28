@@ -18,6 +18,9 @@ export class CompanyReportedCashFlowsHttpService extends DefaultDataService<Comp
 
   override getById(key: string | number): Observable<CompanyReportedCashFlows> {
 
+    console.log("CRCF HTTP Called")
+
+
       let url = environment.baseApiUrl + 'query?' + 'function=' + 'CASH_FLOW' + '&' + 'symbol=' + key + '&' + 'apikey=' + environment.apiKey;
 
       return this.http.get<CompanyReportedCashFlows>(url);

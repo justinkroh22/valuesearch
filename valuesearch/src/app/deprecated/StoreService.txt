@@ -59,7 +59,14 @@
     }
   }
 
+ // calculatePE$() {
+  //   calculateEPS(sharesOutstanding$: Observable<number>, netIncome$: Observable<number>): Observable<number> {
 
+  //     let EPS$ = combineLatest([sharesOutstanding$, netIncome$]).pipe(map(([sharesOutstanding,netIncome]) =>  netIncome / sharesOutstanding));
+  
+  //     return EPS$;
+  //   }
+  // }
 
 
   // getFromStoreByKey(key: string, options?: FromStoreOptions): Observable<CompanyReportedIncomeStatements | undefined> {

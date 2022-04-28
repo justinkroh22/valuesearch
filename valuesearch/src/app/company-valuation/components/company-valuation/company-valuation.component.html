@@ -1,10 +1,13 @@
 <h2>Company Valuation</h2>
 
-<p>Shares Outstanding {{sharesOutstanding$ | async}}</p>
+<!-- <p>Shares Outstanding {{sharesOutstanding$ | async}}</p>
 
-<p>Annual EPS {{annualEPS$ | async}}</p>
+<p>Annual EPS (GAAP) {{annualEPS$ | async}}</p> -->
 
-<p>TTM EPS {{ttmEPS$ | async}}</p>
+<p>TTM EPS (GAAP) {{ttmEPS$ | async}}</p>
+
+<p>TTM PE (GAAP) {{ttmPE$ | async}}</p>
+
 <!-- <ng-container
  *ngIf =
     "(companyReportedIncomeStatements$ | async) as companyReportedIncomeStatements
